@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
+    <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="2.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\CVS Projects\jam\JamCore\CommonMethods\CommonMethods.vbproj" />
+    <ProjectReference Include="..\AppTools.Model\AppTools.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.DirectoryServices">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.DirectoryServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices.Protocols">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.DirectoryServices.Protocols.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

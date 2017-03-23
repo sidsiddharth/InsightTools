@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  apptools:
+    image: apptools
+    build:
+      context: ./AppTools
+      dockerfile: Dockerfile
