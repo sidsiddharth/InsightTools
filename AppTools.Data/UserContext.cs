@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using AppTools.Model;
 //using System.DirectoryServices;
 //using System.DirectoryServices.Protocols;
-using CommonMethods;
+//using CommonMethods;
 using System.Net;
 using Novell.Directory.Ldap;
 
@@ -24,6 +24,7 @@ namespace AppTools.Data
     public class LDAPAccess
     {
         private static string[] propertiesToQuery = { "uid", "givenName", "sn", "email", "partnerreference", "telephoneNumber", "hasprovidedinformation","cancreatecase","company","cn","pwdAccountLockedTime", "pwdChangedTime", "pwdPolicySubentry", "pwdReset" };
+        private const string environment = "development";
         public LdapConnection OpenLDAPAdminConnection()
         {
             //LdapDirectoryIdentifier ldapDirIdentifier = null;
@@ -59,10 +60,50 @@ namespace AppTools.Data
             }
         }
 
+        public List<AppTools.Model.User> GetLDAPUsers()
+        {
+            string baseDN = "ou=groups,dc=catalystapps,";
+            baseDN += environment == "production-japan" ? "dc=co,dc=jp" : "dc=com";
+            string filter = "(&(objectClass=crsUser))";
+            AppTools.Model.User user = null;
+            LdapConnection ldapConn = null;
+            LDAPAccess _ldapaccess = null;
+            LdapEntry nextEntry = null;
+            LdapSearchResults lsc = null;
+            List <AppTools.Model.User> lstUser= null;
+            try
+            {
+                _ldapaccess = new LDAPAccess();
+                using (ldapConn = OpenLDAPAdminConnection())
+                {
+                    lsc = ldapConn.Search(baseDN, LdapConnection.SCOPE_SUB, filter, propertiesToQuery, false);
+                    lstUser = new List<Model.User>();
+                    while (lsc.hasMore())
+                    {
+                        try
+                        {
+                            nextEntry = lsc.next();
+                            user = MapLDAPEntryToUser(nextEntry);
+                            lstUser.Add(user);
+                        }
+                        catch (LdapException ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                }
+                return lstUser;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public AppTools.Model.User GetLDAPUser(string userName)
         {
             string baseDN = "ou=groups,dc=catalystapps,";
-            baseDN += AppConfigSettings.ServerEnvironment == "production-japan" ? "dc=co,dc=jp" : "dc=com";
+            baseDN += environment == "production-japan" ? "dc=co,dc=jp" : "dc=com";
             string filter = "(&(objectClass=crsUser)(uid=" + userName + "))";
             AppTools.Model.User user = null;
             LdapConnection ldapConn = null;

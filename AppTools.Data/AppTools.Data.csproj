@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\CVS Projects\jam\JamCore\CommonMethods\CommonMethods.vbproj" />
     <ProjectReference Include="..\AppTools.Model\AppTools.Model.csproj" />
   </ItemGroup>
 

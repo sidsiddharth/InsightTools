@@ -15,6 +15,11 @@ namespace AppTools.Controllers
     {
         private readonly IUserRepository _userRepository;
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 //using AppTools.Model;
-using CommonMethods;
+//using CommonMethods;
 //using System.DirectoryServices;
 //using System.DirectoryServices.ActiveDirectory;
 //using System.DirectoryServices.Protocols;
@@ -39,7 +39,9 @@ namespace AppTools.Data
 
         public IEnumerable<AppTools.Model.User> GetAll()
         {
-            return _context.Users.ToList();
+            //return _context.Users.ToList();
+            LDAPAccess ldapAccess = new LDAPAccess();
+            return  ldapAccess.GetLDAPUsers();
         }
 
         public void Remove(string userName)

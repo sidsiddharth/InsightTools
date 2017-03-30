@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using AppTools.Model;
+using AppTools.Data;
+using AppTools;
 
 namespace AppTools.Web
 {
@@ -27,8 +31,13 @@ namespace AppTools.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //requires using Microsoft.EntityFrameworkCore;
+            services.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase());
+            
             // Add framework services.
             services.AddMvc();
+
+            services.AddSingleton<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
