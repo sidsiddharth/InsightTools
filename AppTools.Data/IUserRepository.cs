@@ -9,10 +9,10 @@ namespace AppTools.Data
 {
     public interface IUserRepository
     {
-        void Add(User user);
-        IEnumerable<User> GetAll();
+        void Add(string userName, User user);
+        IEnumerable<User> GetAll(string searchString);
         User Find(string userName);
         void Remove(string userName);
-        void Update(User user);
+        void Update(string userName, User user);
     }
 }

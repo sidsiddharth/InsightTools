@@ -1,0 +1,67 @@
+﻿@model AppTools.Model.User
+
+@{
+    ViewData["Title"] = "Details";
+ }
+
+<h2>User Details:</h2>
+
+<div>
+    <h4>User</h4>
+    <hr/>
+    <dl class="="d1-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Partner)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Partner)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CanCreateCase)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CanCreateCase)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Add" asp-route-userName="@Model.UserName">Edit</a> |
+    <a asp-action="Add">Back to List</a>
+</div>
+

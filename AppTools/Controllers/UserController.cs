@@ -8,7 +8,7 @@ using AppTools.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace AppTools.Controllers
+namespace AppTools.Api.Controllers
 {
     [Route("api/[controller]")]
     public class UserController : Controller
@@ -26,9 +26,9 @@ namespace AppTools.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<User> GetAll()
+        public IEnumerable<User> GetAll(string searchString)
         {
-            return _userRepository.GetAll();
+            return _userRepository.GetAll(searchString);
         }
 
         [HttpGet("{userName}", Name = "GetUser")]
@@ -43,13 +43,13 @@ namespace AppTools.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] User user)
+        public IActionResult Create(string userName, [FromBody] User user)
         {
             if (user == null)
             {
                 return BadRequest();
             }
-            _userRepository.Add(user);
+            _userRepository.Add(userName, user);
             return CreatedAtRoute("GetUser", new { UserName = user.UserName }, user);
         }
 
@@ -69,7 +69,7 @@ namespace AppTools.Controllers
             insightUser.FirstName = user.FirstName;
             insightUser.LastName = user.LastName;
 
-            _userRepository.Update(insightUser);
+            _userRepository.Update(userName, insightUser);
             return new NoContentResult();
         }
 

@@ -1,7 +1,60 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿@model IEnumerable<AppTools.Model.User>
+@{
+   ViewData["Title"] = "Users";
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
-<p>Hello from our View Template!</p>
+<p>
+    <!--<a asp-action="Create" asp-route-userName="">Create</a>-->
+</p>
+<form asp-controller="User" asp-action="" method="get">
+    <p>
+        User: <input type="text" name="searchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model){
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-userName="@item.UserName">Edit</a>
+                <a asp-action="Details" asp-route-userName="@item.UserName">Details</a>
+                <a asp-action="Delete" asp-route-userName="@item.UserName">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTools", "AppTools\AppTools.csproj", "{020B8E08-BD03-4C29-8BF7-589F34602B30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTools.Api", "AppTools\AppTools.Api.csproj", "{020B8E08-BD03-4C29-8BF7-589F34602B30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTools.Model", "AppTools.Model\AppTools.Model.csproj", "{67062FA9-09CB-4621-86A4-4422CAA5FE2A}"
 EndProject
