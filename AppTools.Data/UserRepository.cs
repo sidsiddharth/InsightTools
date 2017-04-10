@@ -17,21 +17,21 @@ namespace AppTools.Data
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserContext _context;
+        //private readonly UserContext _context;
         public IOptions<AppKeyConfig> appKeys;
         public AppKeyConfig AppConfigs { get; }
         
-        public UserRepository(UserContext context, IOptions<AppKeyConfig> appKeys)
+        public UserRepository(IOptions<AppKeyConfig> appKeys)
         {
-            _context = context;
+            //_context = context;
             //Add(new AppTools.Model.User { FirstName = "Sid", UserName="shazarika", LastName="Hazarika" });
             AppConfigs = appKeys.Value;
         }
 
         public void Add(string userName, AppTools.Model.User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            //_context.Users.Add(user);
+            //_context.SaveChanges();
             LDAPAccess ldapAccess = new LDAPAccess(AppConfigs);
             ldapAccess.CreateLDAPUser(userName, user);
         }

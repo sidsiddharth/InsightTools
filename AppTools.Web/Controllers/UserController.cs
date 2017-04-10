@@ -15,7 +15,7 @@ namespace AppTools.Web.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-        private readonly object routeValues;
+        //private readonly object routeValues;
         public AppKeyConfig AppConfigs { get; }
 
         public UserController(IUserRepository userRepository)
@@ -104,7 +104,7 @@ namespace AppTools.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
                 return RedirectToAction("Details/" + user.UserName, "user");
 

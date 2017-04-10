@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AppTools.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeOriController : Controller
     {
         public IActionResult Index()
         {

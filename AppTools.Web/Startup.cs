@@ -14,6 +14,8 @@ using AppTools.Data;
 using AppTools;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using AppTools.Model.Models;
+using AppTools.Data.Services;
 
 namespace AppTools.Web
 {
@@ -32,6 +34,8 @@ namespace AppTools.Web
             {
                 builder.AddUserSecrets<Startup>();
                 builder.AddApplicationInsightsSettings();
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets("aspnet-AppTools.Web-0f2df5e4-57d2-4982-9b44-70bbf369d2c0");
             }
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -44,13 +48,25 @@ namespace AppTools.Web
         {
             //requires using Microsoft.EntityFrameworkCore;
             services.AddDbContext<UserContext>(opt => opt.UseInMemoryDatabase());
-            
+
+            // Add framework services.
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             // Add framework services.
             services.AddMvc();
 
             services.AddSingleton<IUserRepository, UserRepository>();
             //For retrieving application keys from user-secrets file
             services.Configure<AppKeyConfig>(Configuration.GetSection("AppKeys"));
+
+            // Add application services.
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
 
             //_testSecret = Configuration["MySecret"];
 
@@ -80,6 +96,7 @@ namespace AppTools.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
             else
@@ -88,6 +105,7 @@ namespace AppTools.Web
             }
 
             app.UseStaticFiles();
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {
